@@ -129,7 +129,7 @@ app.put('/notes/:id', async (req, res) => {
 			.send({ message: `Could not update note with id  + req.params.id + ` });
 	}
 });
-//DELETE NOTE --- NOT WORKING
+//DELETE NOTE by Id
 
 app.delete('/notes/:id', async (req, res) => {
 	const deleteNote = await Note.findOneAndDelete(req.params.id);
