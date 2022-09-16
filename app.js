@@ -44,7 +44,7 @@ const Note = mongoose.model('Note', noteSchema);
 // ---------------- ROUTES --------------------------------
 
 //get all notes
-app.get('/note', async (req, res) => {
+app.get('/notes', async (req, res) => {
 	try {
 		const notes = await Note.find({})
 			.sort()
@@ -58,7 +58,7 @@ app.get('/note', async (req, res) => {
 });
 
 // get note by ID
-app.get('/note/id/:id', async (req, res) => {
+app.get('/notes/id/:id', async (req, res) => {
 	try {
 		const notes = await Note.findById(req.params.id)
 			.sort()
@@ -72,9 +72,9 @@ app.get('/note/id/:id', async (req, res) => {
 	}
 });
 
-// get note by title --
+// get note by title---------
 
-app.get('/note/:title', async (req, res) => {
+app.get('/notes/:title', async (req, res) => {
 	try {
 		const notes = await Note.findOne({ title: req.params.title });
 		res.status(200).json(notes);
@@ -86,7 +86,20 @@ app.get('/note/:title', async (req, res) => {
 	}
 });
 
-app.post('/note', async (req, res) => {
+// get note by body----------
+app.get('/notes/:body', async (req, res) => {
+	try {
+		const notes = await Note.findOne({ body: req.params.body });
+		res.status(200).json(notes);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({
+			message: `No Notes Found With The Body Containing: ${req.params.body}`,
+		});
+	}
+});
+
+app.post('/notes', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
@@ -98,7 +111,7 @@ app.post('/note', async (req, res) => {
 });
 
 //DELETE NOTE
-// app.delete('note/:id', async (req, res) => {
+// app.delete('notes/:id', async (req, res) => {
 
 // 		const deleteNote = await Note.findByIdAndRemove(req.params.id);
 // 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
