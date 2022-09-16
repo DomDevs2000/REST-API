@@ -41,6 +41,21 @@ app.get('/note', async (req, res) => {
 	}
 });
 
+// get note by ID
+app.get('/note/:id', async (req, res) => {
+	try {
+		const notes = await Note.findById(req.params.id)
+			.sort()
+			.skip(req.query.page)
+			.limit(req.query.limit);
+		res.status(200).json(notes);
+	} catch (error) {
+		console.log(error);
+		res.send('No Note Found with that ID');
+		res.status(400).json;
+	}
+});
+
 app.post('/note', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
