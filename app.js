@@ -129,10 +129,10 @@ app.put('/notes/:id', async (req, res) => {
 });
 //DELETE NOTE --- NOT WORKING
 
-app.delete('/notes/:title', async (req, res) => {
-	const deleteNote = await Note.findOneAndDelete(req.params.title);
+app.delete('/notes/:id', async (req, res) => {
+	const deleteNote = await Note.findOneAndDelete(req.params.id);
 	res.send(deleteNote);
-	res.status(202).json(`message with id of: ${req.params.title} deleted`);
+	res.status(202).json(`message with id of: ${req.params.id} deleted`);
 });
 
 //----------------------------------------------------------------
