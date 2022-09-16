@@ -28,9 +28,9 @@ async function database() {
 const Note = mongoose.model('Note', noteSchema);
 
 // ----------------
-app.get('/note', async (req, res) => {
+app.get('/note', paginatedResults(), (req, res) => {
 	try {
-		const notes = await Note.find({}).sort();
+		const notes = Note.find({}).sort();
 
 		res.status(200).json(notes);
 	} catch (error) {

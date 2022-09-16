@@ -26,11 +26,23 @@ async function database() {
 }
 
 const Note = mongoose.model('Note', noteSchema);
+// const notes = new Note({
+// 	id: {
+// 		type: Number,
+// 		required: true,
+// 		unique: true,
+// 	},
+// 	body: {
+// 		type: String,
+// 		minlength: 10,
+// 		required: true,
+// 	},
+// });
 
 // ----------------
 app.get('/note', async (req, res) => {
 	try {
-		const notes = await Note.find({}).sort();
+		const notes = await Note.find({}).sort().skip().limit().exec();
 
 		res.status(200).json(notes);
 	} catch (error) {

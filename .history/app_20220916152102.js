@@ -3,39 +3,38 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { urlencoded, json } = require('body-parser');
 const app = express();
-const noteSchema = new mongoose.Schema({
-	title: {
-		type: String,
+const noteSchema = new mongoose.Schema();
+// -----
+app.use(urlencoded({ extended: true })
+app.use(json());
+
+async function database() {
+	await mongoose.connect(process.env.MONGO_URL);
+	console.log('Connected To MongoDB');
+}
+
+const Note = mongoose.model('Note', noteSchema);
+const notes = new Note({
+	id: {
+		type: Number,
 		required: true,
 		unique: true,
 	},
 	body: {
 		type: String,
-		required: true,
 		minlength: 10,
+		required: true,
 	},
 });
-// -----
-app.use(urlencoded({ extended: true }));
-
-app.use(json());
-
-async function database() {
-	mongoose.connect(process.env.MONGO_URL);
-	console.log('Connected To MongoDB');
-}
-
-const Note = mongoose.model('Note', noteSchema);
 
 // ----------------
 app.get('/note', async (req, res) => {
 	try {
-		const notes = await Note.find({}).sort();
+		const notes = await Note.find({}).sort().skip().limit().exec();
 
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
-		res.status(400);
 	}
 });
 

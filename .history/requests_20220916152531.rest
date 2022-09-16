@@ -3,4 +3,3 @@
 GET http://localhost:3000/note
 
 
-POST http://localhost:3000/note
