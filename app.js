@@ -30,7 +30,10 @@ const Note = mongoose.model('Note', noteSchema);
 // ----------------
 app.get('/note', async (req, res) => {
 	try {
-		const notes = await Note.find({}).sort();
+		const notes = await Note.find({})
+			.sort()
+			.skip(req.query.page)
+			.limit(req.query.limit);
 
 		res.status(200).json(notes);
 	} catch (error) {
