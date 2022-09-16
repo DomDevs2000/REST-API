@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 const { urlencoded, json } = require('body-parser');
 const app = express();
 const noteSchema = new mongoose.Schema({
-	__v: {
-		/* Removes Version Number*/ type: Number,
-		select: false,
-	},
-
 	title: {
 		type: String,
 		required: true,
@@ -18,6 +13,10 @@ const noteSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minlength: 10,
+	},
+	__v: {
+		/* Removes Version Number*/ type: Number,
+		select: false,
 	},
 });
 
