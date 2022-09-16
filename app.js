@@ -74,17 +74,17 @@ app.get('/note/id/:id', async (req, res) => {
 
 // get note by title --
 
-// app.get('/note//title:title', async (req, res) => {
-// 	try {
-// 		const notes = await Note.find({ title: req.params.title });
-// 		res.status(200).json(notes);
-// 	} catch (error) {
-// 		console.log(error);
-// 		res
-// 			.status(500)
-// 			.send({ message: `No Notes Found With the Title: ${req.params.title}` });
-// 	}
-// });
+app.get('/note/:title', async (req, res) => {
+	try {
+		const notes = await Note.findOne({ title: req.params.title });
+		res.status(200).json(notes);
+	} catch (error) {
+		console.log(error);
+		res
+			.status(500)
+			.send({ message: `No Notes Found With the Title: ${req.params.title}` });
+	}
+});
 
 app.post('/note', async (req, res) => {
 	try {
