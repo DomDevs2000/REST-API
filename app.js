@@ -20,10 +20,10 @@ const noteSchema = new mongoose.Schema({
 	},
 });
 
-// -----
+// ----------------------------------------------------------------
 app.use(urlencoded({ extended: true }));
 app.use(json());
-
+//-----------------------------------------------------------------
 async function database() {
 	mongoose.connect(process.env.MONGO_URL);
 	console.log('Connected To MongoDB');
@@ -40,7 +40,7 @@ const Note = mongoose.model('Note', noteSchema);
 // console.log(TestNote);
 // ---------------------------------
 
-// ---------------- ROUTES
+// ---------------- ROUTES --------------------------------
 app.get('/note', async (req, res) => {
 	try {
 		const notes = await Note.find({})
@@ -50,8 +50,7 @@ app.get('/note', async (req, res) => {
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
-		res.send({ message: 'Could Not Retrieve Notes' });
-		res.status(500);
+		res.status(500).send({ message: 'Could Not Retrieve Notes' });
 	}
 });
 
@@ -66,7 +65,7 @@ app.get('/note/:id', async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res
-			.status(400)
+			.status(500)
 			.send({ message: `No Notes Found With the ID: ${req.params.id}` });
 	}
 });
