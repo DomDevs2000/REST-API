@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 const { urlencoded, json } = require('body-parser');
 const app = express();
@@ -23,6 +24,7 @@ const noteSchema = new mongoose.Schema({
 });
 
 // ----------------------------------------------------------------
+app.use(morgan('tiny'));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 //-----------------------------------------------------------------
