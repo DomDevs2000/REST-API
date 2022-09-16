@@ -34,7 +34,6 @@ app.get('/note', async (req, res) => {
 			.sort()
 			.skip(req.query.page)
 			.limit(req.query.limit);
-
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
