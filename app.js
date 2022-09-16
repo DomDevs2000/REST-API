@@ -1,8 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
+
 const { urlencoded, json } = require('body-parser');
 const app = express();
+
 const noteSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -12,7 +14,6 @@ const noteSchema = new mongoose.Schema({
 	body: {
 		type: String,
 		required: true,
-		minlength: 10,
 	},
 	__v: {
 		/* Removes Version Number*/ type: Number,
@@ -41,6 +42,8 @@ const Note = mongoose.model('Note', noteSchema);
 // ---------------------------------
 
 // ---------------- ROUTES --------------------------------
+
+//get all notes
 app.get('/note', async (req, res) => {
 	try {
 		const notes = await Note.find({})
@@ -55,7 +58,7 @@ app.get('/note', async (req, res) => {
 });
 
 // get note by ID
-app.get('/note/:id', async (req, res) => {
+app.get('/note/id/:id', async (req, res) => {
 	try {
 		const notes = await Note.findById(req.params.id)
 			.sort()
@@ -63,23 +66,46 @@ app.get('/note/:id', async (req, res) => {
 			.limit(req.query.limit);
 		res.status(200).json(notes);
 	} catch (error) {
-		console.log(error);
 		res
 			.status(500)
 			.send({ message: `No Notes Found With the ID: ${req.params.id}` });
 	}
 });
+
+// get note by title --
+
+// app.get('/note//title:title', async (req, res) => {
+// 	try {
+// 		const notes = await Note.find({ title: req.params.title });
+// 		res.status(200).json(notes);
+// 	} catch (error) {
+// 		console.log(error);
+// 		res
+// 			.status(500)
+// 			.send({ message: `No Notes Found With the Title: ${req.params.title}` });
+// 	}
+// });
+
 app.post('/note', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
 		res.status(201).json(notes);
 	} catch (error) {
-		res.status(500).send({ message: 'Could Not Create Note' });
 		console.log(error);
+		res.status(500).send({ message: 'Could Not Create Note' });
 	}
 });
 
+//DELETE NOTE
+// app.delete('note/:id', async (req, res) => {
+
+// 		const deleteNote = await Note.findByIdAndRemove(req.params.id);
+// 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
+
+// 		res.status(404).json(deleteNote);
+
+// });
 database()
 	.then(async (connection) => {
 		app.listen(process.env.PORT, () => console.log('Server Running...'));
