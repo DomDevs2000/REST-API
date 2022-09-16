@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const { urlencoded, json } = require('body-parser');
 const app = express();
 const noteSchema = new mongoose.Schema({
+	__v: {
+		/* Removes Version Number*/ type: Number,
+		select: false,
+	},
+
 	title: {
 		type: String,
 		required: true,
@@ -15,9 +20,9 @@ const noteSchema = new mongoose.Schema({
 		minlength: 10,
 	},
 });
+
 // -----
 app.use(urlencoded({ extended: true }));
-
 app.use(json());
 
 async function database() {
@@ -27,7 +32,16 @@ async function database() {
 
 const Note = mongoose.model('Note', noteSchema);
 
-// ----------------
+//  TEST NOTE -- make hundreds in separate folder
+// ________________________________
+// const TestNote = new Note({
+// 	title: 'Note Test',
+// 	body: 'this is a test',
+// });
+// console.log(TestNote);
+// ---------------------------------
+
+// ---------------- ROUTES
 app.get('/note', async (req, res) => {
 	try {
 		const notes = await Note.find({})
@@ -37,7 +51,8 @@ app.get('/note', async (req, res) => {
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
-		res.status(400);
+		res.send({ message: 'Could Not Retrieve Notes' });
+		res.status(500);
 	}
 });
 
@@ -51,19 +66,19 @@ app.get('/note/:id', async (req, res) => {
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
-		res.send('No Note Found with that ID');
-		res.status(400).json;
+		res
+			.status(400)
+			.send({ message: `No Notes Found With the ID: ${req.params.id}` });
 	}
 });
-
 app.post('/note', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
 		res.status(201).json(notes);
 	} catch (error) {
+		res.status(500).send({ message: 'Could Not Create Note' });
 		console.log(error);
-		res.status(400);
 	}
 });
 
