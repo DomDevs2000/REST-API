@@ -11,7 +11,8 @@ const noteSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	body: {
+
+	content: {
 		type: String,
 		required: true,
 	},
@@ -87,14 +88,15 @@ app.get('/notes/:title', async (req, res) => {
 });
 
 // get note by body----------
-app.get('/notes/:body', async (req, res) => {
+
+app.get('/notes/:content', async (req, res) => {
 	try {
-		const notes = await Note.findOne({ body: req.params.body });
+		const notes = await Note.findOne({ content: req.params.content });
 		res.status(200).json(notes);
 	} catch (error) {
 		console.log(error);
 		res.status(500).send({
-			message: `No Notes Found With The Body Containing: ${req.params.body}`,
+			message: `No Notes Found With The Content Containing: ${req.params.content}`,
 		});
 	}
 });
@@ -110,17 +112,32 @@ app.post('/notes', async (req, res) => {
 	}
 });
 
-//DELETE NOTE
-// app.delete('notes/:id', async (req, res) => {
+// UPDATE NOTE --------------------------------
+app.put('/notes/:id', async (req, res) => {
+	try {
+		const updateNoteById = await Note.findByIdAndUpdate(req.params.id, {
+			title: req.params.title,
+			content: req.params.content,
+		});
+		res.status(200).json(updateNoteById);
+	} catch (error) {
+		console.log(error);
+		res
+			.status(500)
+			.send({ message: `Could not update note with id  + req.params.id + ` });
+	}
+});
+//DELETE NOTE --- NOT WORKING
 
-// 		const deleteNote = await Note.findByIdAndRemove(req.params.id);
-// 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
+app.delete('/notes/:title', async (req, res) => {
+	const deleteNote = await Note.findOneAndDelete(req.params.title);
+	res.send(deleteNote);
+	res.status(202).json(`message with id of: ${req.params.title} deleted`);
+});
 
-// 		res.status(404).json(deleteNote);
-
-// });
+//----------------------------------------------------------------
 database()
 	.then(async (connection) => {
 		app.listen(process.env.PORT, () => console.log('Server Running...'));
 	})
-	.catch((e) => console.log(e));
+	.catch((error) => console.log(error));
