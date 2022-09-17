@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const { urlencoded, json } = require('body-parser');
 const app = express();
 const notesRouter = require('./routes/notes');
+const database = require('./app.js');
 
 // ----------------------------------------------------------------
 app.use(morgan('tiny'));
@@ -12,10 +13,6 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use('/notes', notesRouter);
 //-----------------------------------------------------------------
-async function database() {
-	mongoose.connect(process.env.MONGO_URL);
-	console.log('Connected To MongoDB');
-}
 
 //----------------------------------------------------------------
 database()
