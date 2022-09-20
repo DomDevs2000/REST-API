@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 			.limit(req.query.limit);
 		res.status(200).json(notes);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(400).send({ message: 'Could Not Retrieve Notes' });
 	}
 });
@@ -21,8 +21,10 @@ router.get('/id/:id', async (req, res) => {
 			.sort()
 			.skip(req.query.page)
 			.limit(req.query.limit);
+		console.log(notes);
 		res.status(200).json(notes);
 	} catch (error) {
+		console.error(error);
 		res
 			.status(400)
 			.send({ message: `No Notes Found With the ID: ${req.params.id}` });
@@ -34,7 +36,7 @@ router.get('/title/:title', async (req, res) => {
 		const notes = await Note.findOne({ title: req.params.title });
 		res.status(200).json(notes);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res
 			.status(400)
 			.send({ message: `No Notes Found With the Title: ${req.params.title}` });
@@ -46,7 +48,7 @@ router.get('/content/:content', async (req, res) => {
 		const notes = await Note.findOne({ content: req.params.content });
 		res.status(200).json(notes);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(400).send({
 			message: `No Notes Found With The Content Containing: ${req.params.content}`,
 		});
@@ -57,24 +59,29 @@ router.post('/', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
-		res.status(201).json(notes);
+		if (req.body.length < 5) {
+			console.log('less than 5');
+		} else {
+			res.status(201).json(notes);
+		}
 	} catch (error) {
 		console.log(error);
-		res.status(500).send({ message: 'Could Not Create Note' });
+		res.status(400).send({
+			message: 'Could Not Create Note - Content Must Be More Than 5 Characters',
+		});
 	}
 });
 
 router.put('/:id', async (req, res) => {
 	try {
-		console.log(req.body, req.params.id);
-
 		const updateNoteById = await Note.findByIdAndUpdate(req.params.id, {
 			title: req.body.title,
 			content: req.body.content,
+			new: true,
 		});
 		res.status(200).json(updateNoteById);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res
 			.status(400)
 			.send({ message: `Could not update note with id  + req.params.id + ` });
@@ -95,6 +102,4 @@ router.delete('/:id', async (req, res) => {
 		res.status(500).json({ message: 'error deleting note' });
 	}
 });
-module.exports = router;
-
 module.exports = router;

@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
-		unique: true,
-	},
+const noteSchema = new mongoose.Schema(
+	{
+		title: {
+			type: String,
+			required: true,
+			unique: true,
+		},
 
-	content: {
-		type: String,
-		required: true,
-		minlength: 5,
+		content: {
+			type: String,
+			required: true,
+			minlength: 5,
+		},
+
+		__v: {
+			/* Removes Version Number*/
+			type: Number,
+			select: false,
+		},
+		timestamps: {},
 	},
-	__v: {
-		/* Removes Version Number*/ type: Number,
-		select: false,
-	},
-});
+	{ timestamps: true }
+);
 
 const Note = mongoose.model('Note', noteSchema);
 
