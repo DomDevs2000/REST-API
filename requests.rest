@@ -1,0 +1,32 @@
+GET  http://localhost:3000/notes
+###
+GET http://localhost:3000/notes/id/6328c82d667851cfc492d
+###
+
+GET http://localhost:3000/notes/title/test123
+
+###
+
+GET http://localhost:3000/notes/content/note123
+
+###
+
+POST http://localhost:3000/notes 
+content-type: application/json
+
+{ 
+"title": "testing",
+"content": "iiiii"
+}
+
+###
+PUT http://localhost:3000/notes/6328c82d667851cfc492dfca
+content-type: application/json
+
+{ 
+"title": "checking timestamp on update",
+"content": "timestamp on updateeeeeeeeeeddddd"
+}
+
+###
+DELETE http://localhost:3000/notes/6327b6e3a47a07d9d0d6ed95

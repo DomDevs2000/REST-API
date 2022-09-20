@@ -1,5 +1,5 @@
 node_modules
-requests.rest
+
 .env
 .history
 coverage
