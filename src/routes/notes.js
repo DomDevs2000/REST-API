@@ -38,7 +38,7 @@ router.get('/title/:title', async (req, res) => {
 	} catch (error) {
 		console.error(error);
 		res
-			.status(400)
+			.status(404)
 			.send({ message: `No Notes Found With the Title: ${req.params.title}` });
 	}
 });
@@ -49,7 +49,7 @@ router.get('/content/:content', async (req, res) => {
 		res.status(200).json(notes);
 	} catch (error) {
 		console.error(error);
-		res.status(400).send({
+		res.status(404).send({
 			message: `No Notes Found With The Content Containing: ${req.params.content}`,
 		});
 	}
@@ -59,13 +59,9 @@ router.post('/', async (req, res) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
-		if (req.body.length < 5) {
-			console.log('less than 5');
-		} else {
-			res.status(201).json(notes);
-		}
+		res.status(201).json(notes);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(400).send({
 			message: 'Could Not Create Note - Content Must Be More Than 5 Characters',
 		});
@@ -84,22 +80,19 @@ router.put('/:id', async (req, res) => {
 		console.error(error);
 		res
 			.status(400)
-			.send({ message: `Could not update note with id  + req.params.id + ` });
+			.send({ message: `Could not update note with id ${req.params.id}` });
 	}
 });
 
 router.delete('/:id', async (req, res) => {
 	try {
 		const notes = await Note.findById(req.params.id);
-		if (notes) {
-			await notes.delete();
-			res.status(202).json(`message with id of: ${req.params.id} deleted`);
-		} else {
-			res.status(404).json(`not found`);
-		}
+
+		await notes.delete();
+		res.status(202).json(`message with id of: ${req.params.id} deleted`);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'error deleting note' });
+		res.status(404).send({ message: 'error deleting note' });
 	}
 });
 module.exports = router;

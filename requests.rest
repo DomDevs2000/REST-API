@@ -1,4 +1,4 @@
-GET  http://localhost:3000/notes
+GET  http://localhost:4000/notes
 ###
 GET http://localhost:3000/notes/id/6328c82d667851cfc492d
 ###
@@ -11,12 +11,12 @@ GET http://localhost:3000/notes/content/note123
 
 ###
 
-POST http://localhost:3000/notes 
+POST http://localhost:4000/notes 
 content-type: application/json
 
 { 
-"title": "testing",
-"content": "iiiii"
+"title": "testnote",
+"content": "tes"
 }
 
 ###
@@ -29,4 +29,4 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:3000/notes/6327b6e3a47a07d9d0d6ed95
+DELETE http://localhost:4000/notes/6324840c01802da1a22e6349
