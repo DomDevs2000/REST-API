@@ -16,10 +16,10 @@ describe('GET /notes', () => {
 		);
 	});
 	it('get note by id', async () => {
-		const res = await request(app).get('/notes/id/6324e2de5beb02f625bd0687');
+		const res = await request(app).get('/notes/id/632b7e89e0cdb235fa90abb9');
 		expect(res.status).toBe(200);
-		expect(res.body.title).toEqual('test123');
-		expect(res.body.content).toEqual('note123');
+		expect(res.body.title).toEqual('testnote123');
+		expect(res.body.content).toEqual('testingnote');
 	});
 	it('should error if no note found by id', async () => {
 		const res = await request(app).get('/id/iiii');
@@ -27,10 +27,10 @@ describe('GET /notes', () => {
 	});
 
 	it('should get note by title', async () => {
-		const res = await request(app).get('/notes/title/testnote');
+		const res = await request(app).get('/notes/title/Testing');
 		expect(res.status).toBe(200);
-		expect(res.body.title).toEqual('testnote');
-		expect(res.body.content).toEqual('testnote');
+		expect(res.body.title).toEqual('Testing');
+		expect(res.body.content).toEqual('Testing');
 	});
 	it('should error if no note by title found', async () => {
 		const res = await request(app).get('/notes/title/');
@@ -38,10 +38,10 @@ describe('GET /notes', () => {
 	});
 
 	it('get note by content', async () => {
-		const res = await request(app).get('/notes/content/testnote');
+		const res = await request(app).get('/notes/content/Testing');
 		expect(res.statusCode).toBe(200);
-		expect(res.body.title).toEqual('testnote');
-		expect(res.body.content).toEqual('testnote');
+		expect(res.body.title).toEqual('Testing');
+		expect(res.body.content).toEqual('Testing');
 	});
 
 	it('should error if no note by content found', async () => {
@@ -55,14 +55,14 @@ describe('POST /notes', () => {
 		const res = await request(app)
 			.post('/notes')
 			.send({
-				title: 'Testing',
-				content: 'Testing',
+				title: 'abcdef',
+				content: 'abcdef',
 			})
 			.set('Accept', 'application/json');
 
 		expect(res.status).toBe(201);
-		expect(res.body.title).toEqual('Testing');
-		expect(res.body.content).toEqual('Testing');
+		expect(res.body.title).toEqual('abcdef');
+		expect(res.body.content).toEqual('abcdef');
 	});
 
 	it('should error if body length is less than 5', async () => {
@@ -85,7 +85,7 @@ describe('POST /notes', () => {
 describe('PUT /notes', () => {
 	it('update note by id', async () => {
 		const res = await request(app)
-			.put('/notes/6325abc08ad2dcd4264de870')
+			.put('/notes/632ba17debed3c4a15b50172')
 			.send({
 				title: 'updatednote',
 				content: 'updatedcontent',
