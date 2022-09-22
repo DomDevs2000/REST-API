@@ -21,13 +21,16 @@ describe('GET /notes', () => {
 		expect(res.body.title).toEqual('testnote123');
 		expect(res.body.content).toEqual('testingnote');
 	});
+
 	it('should error if no note found by id', async () => {
-		const res = await request(app).get('/id/iiii');
+		const invalidId = 'iiii';
+		const res = await request(app).get(`/id/${invalidId}`);
 		expect(res.status).toBe(404);
 	});
 
 	it('should get note by title', async () => {
-		const res = await request(app).get('/notes/title/Testing');
+		const testTitle = 'Testing';
+		const res = await request(app).get(`/notes/title/${testTitle}`);
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('Testing');
 		expect(res.body.content).toEqual('Testing');
@@ -38,7 +41,8 @@ describe('GET /notes', () => {
 	});
 
 	it('get note by content', async () => {
-		const res = await request(app).get('/notes/content/Testing');
+		const testContent = 'Testing';
+		const res = await request(app).get(`/notes/content/${testContent}`);
 		expect(res.statusCode).toBe(200);
 		expect(res.body.title).toEqual('Testing');
 		expect(res.body.content).toEqual('Testing');
@@ -51,14 +55,11 @@ describe('GET /notes', () => {
 });
 
 describe('POST /notes', () => {
-	it('should create new user with title/content', async () => {
-		const res = await request(app)
-			.post('/notes')
-			.send({
-				title: 'abcdef',
-				content: 'abcdef',
-			})
-			.set('Accept', 'application/json');
+	it('should create new nte with title/content', async () => {
+		const res = await request(app).post('/notes').send({
+			title: 'abcdef',
+			content: 'abcdef',
+		});
 
 		expect(res.status).toBe(201);
 		expect(res.body.title).toEqual('abcdef');
@@ -77,6 +78,14 @@ describe('POST /notes', () => {
 		// expect(res.send).toBe({
 		// 	message: 'Could Not Create Note - Content Must Be More Than 5 Characters',
 		// });
+	});
+
+	it('should not post if note exists with existing title', async () => {
+		const res = await await request(app).post('/notes').send({
+			title: 'Testing',
+			content: 'Testing',
+		});
+		expect(res.status).toBe(400);
 	});
 });
 

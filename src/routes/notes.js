@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
 	} catch (error) {
 		console.error(error);
 		res.status(400).send({
-			message: 'Could Not Create Note - Content Must Be More Than 5 Characters',
+			message: 'Could Not Create Note',
 		});
 	}
 });
@@ -91,7 +91,7 @@ router.delete('/:id', async (req, res) => {
 		await notes.delete();
 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(404).send({ message: 'error deleting note' });
 	}
 });
