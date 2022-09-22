@@ -13,6 +13,7 @@ app.use(morgan('tiny'));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use('/notes', notesRouter);
+app.set('json spaces', 2);
 //-----------------------------------------------------------------
 
 //----------------------------------------------------------------
