@@ -86,9 +86,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
 	try {
-		const notes = await Note.findById(req.params.id);
-
-		await notes.delete();
+		const notes = await Note.findOneAndDelete(req.params.id);
 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
 	} catch (error) {
 		console.error(error);

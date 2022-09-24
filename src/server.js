@@ -1,26 +1,14 @@
 require('dotenv').config();
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const { urlencoded, json } = require('body-parser');
-const notesRouter = require('./routes/notes');
-const database = require('./app.js');
-const app = express();
+const mongoose = require('mongoose');
+const app = require('./app');
 
-// ----------------------------------------------------------------
-app.use(cors());
-app.use(morgan('tiny'));
-app.use(urlencoded({ extended: true }));
-app.use(json());
-app.use('/notes', notesRouter);
-app.set('json spaces', 2);
-//-----------------------------------------------------------------
-
-//----------------------------------------------------------------
+const database = async () => {
+	await mongoose.connect(process.env.MONGO_URL);
+	console.log('Connected To MongoDB');
+};
 database()
 	.then(async (connection) => {
 		app.listen(process.env.PORT, () => console.log('Server Running...'));
 	})
 	.catch((error) => console.log(error));
-
-module.exports = app;
+module.exports = database;

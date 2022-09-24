@@ -5,7 +5,7 @@
 	"main": "src/server.js",
 	"scripts": {
 		"dev": "nodemon src/server.js",
-		"test": "jest"
+		"test": "jest --watch --coverage"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,6 +20,7 @@
 	},
 	"devDependencies": {
 		"jest": "^29.0.3",
+		"mockingoose": "^2.15.2",
 		"nodemon": "^2.0.20",
 		"supertest": "^6.2.4"
 	}
