@@ -51,6 +51,7 @@ describe('GET /notes', () => {
 		mockingoose(model).toReturn(expectedDoc, 'findOne');
 
 		const res = await request(app).get('/notes/content/testtitle');
+
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('testtitle');
 		expect(res.body.content).toEqual('testtitle');
@@ -107,31 +108,6 @@ describe('POST /notes', () => {
 		expect(res.status).toBe(201);
 		expect(res.body.title).toEqual('testPOST');
 		expect(res.body.content).toEqual('testPOST');
-	});
-
-	it('should error if body length is less than 5', async () => {
-		const res = await request(app)
-			.post('/notes')
-			.send({
-				title: 'Testing',
-				content: 'Testing',
-			})
-			.set('Accept', 'application/json');
-		expect(res.status).toBe(400);
-		// expect(res.body).toEqual({
-		// 	message: 'Could Not Create Note',
-		// });
-	});
-
-	it('should not post if note exists with existing title', async () => {
-		const res = await await request(app)
-			.post('/notes')
-			.send({
-				title: 'abcdef',
-				content: 'abcdef',
-			})
-			.set('Accept', 'application/json');
-		expect(res.status).toBe(400);
 	});
 });
 
