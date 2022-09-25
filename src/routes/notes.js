@@ -21,7 +21,7 @@ router.get('/id/:id', async (req, res) => {
 			.sort()
 			.skip(req.query.page)
 			.limit(req.query.limit);
-		console.log(notes);
+
 		res.status(200).json(notes);
 	} catch (error) {
 		console.error(error);
