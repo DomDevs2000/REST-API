@@ -85,7 +85,10 @@ describe('GET /notes', () => {
 });
 
 describe('POST /notes', () => {
-	it.only('should create new note with title/content', async () => {
+	beforeEach(() => {
+		mockingoose.resetAll();
+	});
+	it('should create new note with title/content', async () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723c178',
 			title: 'testPOST',
@@ -110,8 +113,8 @@ describe('POST /notes', () => {
 		const res = await request(app)
 			.post('/notes')
 			.send({
-				title: 'Test',
-				content: 'T',
+				title: 'Testing',
+				content: 'Testing',
 			})
 			.set('Accept', 'application/json');
 		expect(res.status).toBe(400);
@@ -121,10 +124,13 @@ describe('POST /notes', () => {
 	});
 
 	it('should not post if note exists with existing title', async () => {
-		const res = await await request(app).post('/notes').send({
-			title: 'Testing',
-			content: 'Testing',
-		});
+		const res = await await request(app)
+			.post('/notes')
+			.send({
+				title: 'abcdef',
+				content: 'abcdef',
+			})
+			.set('Accept', 'application/json');
 		expect(res.status).toBe(400);
 	});
 });
@@ -133,6 +139,9 @@ describe('POST /notes', () => {
 // // DOESNT RETURN UPDATED -- RETURNS NON UPDATED NOTE THEN UPDATES
 
 describe('PUT /notes', () => {
+	beforeEach(() => {
+		mockingoose.resetAll();
+	});
 	it('update note by id', async () => {
 		// arrange
 		const expectedDoc = {
@@ -158,8 +167,10 @@ describe('PUT /notes', () => {
 
 // // NOTE DELETED ON FIRST TEST RUN SO CANNOT REPEAT
 describe('DELETE /notes', () => {
+	beforeEach(() => {
+		mockingoose.resetAll();
+	});
 	it('should check if note by id exists', async () => {
-		// returns 404 when note exists in database
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'updatednote',
