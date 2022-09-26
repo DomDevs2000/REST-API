@@ -1,20 +1,21 @@
-require('dotenv').config();
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const { urlencoded, json } = require('body-parser');
-const notesRouter = require('./routes/notes');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+
+import { router } from './routes/notes.js';
 const app = express();
 
 // ----------------------------------------------------------------
 app.use(cors());
-app.use(morgan('tiny'));
-app.use(urlencoded({ extended: true }));
-app.use(json());
-app.use('/notes', notesRouter);
+app.use(logger('tiny'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/notes', router);
 app.set('json spaces', 2);
 //-----------------------------------------------------------------
 
 //----------------------------------------------------------------
-
-module.exports = app;
+export { app };

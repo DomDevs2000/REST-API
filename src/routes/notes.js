@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Note = require('../models/notes.schema');
+import { Note } from '../models/notes.schema.js';
 
 router.get('/', async (req, res) => {
 	try {
@@ -93,4 +93,4 @@ router.delete('/:id', async (req, res) => {
 		res.status(404).send({ message: 'error deleting note' });
 	}
 });
-module.exports = router;
+export { router };

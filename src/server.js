@@ -1,6 +1,7 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const app = require('./app');
+import dotenv from 'dotenv';
+dotenv.config();
+import mongoose from 'mongoose';
+import { app } from './app.js';
 
 const database = async () => {
 	await mongoose.connect(process.env.MONGO_URL, {
@@ -14,4 +15,5 @@ database()
 		app.listen(process.env.PORT, () => console.log('Server Running...'));
 	})
 	.catch((error) => console.log(error));
-module.exports = database;
+
+export { database };
