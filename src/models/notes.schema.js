@@ -17,7 +17,6 @@ const noteSchema = new mongoose.Schema(
 			type: Number,
 			select: false,
 		},
-		timestamps: {},
 	},
 	{ timestamps: true }
 );
