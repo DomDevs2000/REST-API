@@ -13,7 +13,7 @@ describe('GET /notes', () => {
 		expect(res.status).toBe(200);
 	});
 
-	it('should respond with content type of JSON', async () => {
+	it('should respond with body type of JSON', async () => {
 		const res = await request(app).get('/notes');
 		expect(res.headers['content-type']).toEqual(
 			expect.stringContaining('json')
@@ -24,7 +24,7 @@ describe('GET /notes', () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'testnote',
-			content: 'testnote',
+			body: 'testnote',
 		};
 
 		mockingoose(model).toReturn(expectedDoc, 'findOne');
@@ -32,7 +32,7 @@ describe('GET /notes', () => {
 
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('testnote');
-		expect(res.body.content).toEqual('testnote');
+		expect(res.body.body).toEqual('testnote');
 	});
 
 	it('should error if no note found by id', async () => {
@@ -45,42 +45,42 @@ describe('GET /notes', () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'testtitle',
-			content: 'testtitle',
+			body: 'testtitle',
 		};
 
 		mockingoose(model).toReturn(expectedDoc, 'findOne');
 
-		const res = await request(app).get('/notes/content/testtitle');
+		const res = await request(app).get('/notes/body/testtitle');
 
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('testtitle');
-		expect(res.body.content).toEqual('testtitle');
+		expect(res.body.body).toEqual('testtitle');
 
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('testtitle');
-		expect(res.body.content).toEqual('testtitle');
+		expect(res.body.body).toEqual('testtitle');
 	});
 	it('should error if no note by title found', async () => {
 		const res = await request(app).get('/notes/title/');
 		expect(res.status).toBe(404);
 	});
 
-	it('get note by content', async () => {
+	it('get note by body', async () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'testcontent',
-			content: 'testcontent',
+			body: 'testcontent',
 		};
 		mockingoose(model).toReturn(expectedDoc, 'findOne');
 
-		const res = await request(app).get('/notes/content/testcontent');
+		const res = await request(app).get('/notes/body/testcontent');
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('testcontent');
-		expect(res.body.content).toEqual('testcontent');
+		expect(res.body.body).toEqual('testcontent');
 	});
 
-	it('should error if no note by content found', async () => {
-		const res = await request(app).get('/notes/content/');
+	it('should error if no note by body found', async () => {
+		const res = await request(app).get('/notes/body/');
 		expect(res.statusCode).toBe(404);
 	});
 });
@@ -89,11 +89,11 @@ describe('POST /notes', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
 	});
-	it('should create new note with title/content', async () => {
+	it('should create new note with title/body', async () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723c178',
 			title: 'testPOST',
-			content: 'testPOST',
+			body: 'testPOST',
 		};
 		mockingoose(model).toReturn(expectedDoc, 'create');
 
@@ -101,13 +101,13 @@ describe('POST /notes', () => {
 			.post('/notes')
 			.send({
 				title: 'testPOST',
-				content: 'testPOST',
+				body: 'testPOST',
 			})
 			.set('Accept', 'application/json');
 
 		expect(res.status).toBe(201);
 		expect(res.body.title).toEqual('testPOST');
-		expect(res.body.content).toEqual('testPOST');
+		expect(res.body.body).toEqual('testPOST');
 	});
 });
 
@@ -123,7 +123,7 @@ describe('PUT /notes', () => {
 		const expectedDoc = {
 			_id: '507f191e810c19729de860ea',
 			title: 'updatednote',
-			content: 'updatedcontent',
+			body: 'updatedcontent',
 		};
 		mockingoose(model).toReturn(expectedDoc, 'findOneAndUpdate');
 		// act
@@ -131,13 +131,13 @@ describe('PUT /notes', () => {
 			.put('/notes/507f191e810c19729de860ea')
 			.send({
 				title: 'updatednote',
-				content: 'updatedcontent',
+				body: 'updatedcontent',
 			})
 			.set('Accept', 'application/json');
 		// assert
 		expect(res.status).toBe(200);
 		expect(res.body.title).toEqual('updatednote');
-		expect(res.body.content).toEqual('updatedcontent');
+		expect(res.body.body).toEqual('updatedcontent');
 	});
 });
 
@@ -150,7 +150,7 @@ describe('DELETE /notes', () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'updatednote',
-			content: 'updatedcontent',
+			body: 'updatedcontent',
 		};
 		mockingoose(model).toReturn(expectedDoc, 'findOne');
 		const res = await request(app).get('/notes/id/632a25286540a9d1f723b178');
@@ -166,7 +166,7 @@ describe('DELETE /notes', () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
 			title: 'updatednote',
-			content: 'updatedcontent',
+			body: 'updatedcontent',
 		};
 		mockingoose(model).toReturn(expectedDoc, 'findOneAndRemove');
 		const res = await request(app).delete('/notes/632a25286540a9d1f723b178');

@@ -43,7 +43,7 @@ router.get('/title/:title', async (req, res) => {
 	}
 });
 
-router.get('/content/:content', async (req, res) => {
+router.get('/body/:content', async (req, res) => {
 	try {
 		const notes = await Note.findOne({ content: req.params.content });
 		res.status(200).json(notes);

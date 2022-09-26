@@ -7,7 +7,7 @@ const noteSchema = new mongoose.Schema(
 			required: true,
 		},
 
-		content: {
+		body: {
 			type: String,
 			required: true,
 		},
@@ -22,5 +22,4 @@ const noteSchema = new mongoose.Schema(
 );
 
 const Note = mongoose.model('Note', noteSchema);
-
 module.exports = Note;
