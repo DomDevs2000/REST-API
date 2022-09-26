@@ -111,9 +111,6 @@ describe('POST /notes', () => {
 	});
 });
 
-// // NOTE UPDATED ON FIRST TEST RUN SO CANNOT REPEAT
-// // DOESNT RETURN UPDATED -- RETURNS NON UPDATED NOTE THEN UPDATES
-
 describe('PUT /notes', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
@@ -141,7 +138,6 @@ describe('PUT /notes', () => {
 	});
 });
 
-// // NOTE DELETED ON FIRST TEST RUN SO CANNOT REPEAT
 describe('DELETE /notes', () => {
 	beforeEach(() => {
 		mockingoose.resetAll();
@@ -161,7 +157,7 @@ describe('DELETE /notes', () => {
 		const res = await request(app).get('/notes/fakeid');
 		expect(res.status).toBe(404);
 	});
-	// cannot delete as it already deleted on first test run
+
 	it('delete note by id', async () => {
 		const expectedDoc = {
 			_id: '632a25286540a9d1f723b178',
