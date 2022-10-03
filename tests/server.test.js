@@ -1,8 +1,7 @@
-const app = require('../src/app.js');
-const request = require('supertest');
-const model = require('../src/models/notes.schema.js');
-
-const mockingoose = require('mockingoose');
+import { app } from '../src/app';
+import request from 'supertest';
+import { Note as model } from '../src/models/notes.schema';
+import mockingoose from 'mockingoose';
 
 describe('GET /notes', () => {
 	beforeEach(() => {
