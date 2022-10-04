@@ -1,4 +1,3 @@
-//ts@check
 import { app } from '../src/app';
 import request from 'supertest';
 import { Note as model } from '../src/models/notes.schema';

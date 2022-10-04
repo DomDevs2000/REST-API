@@ -1,9 +1,8 @@
-//@ts-check
 import express from 'express';
 const router = express.Router();
 import { Note } from '../models/notes.schema.js';
-
-router.get('/', async (req, res) => {
+import { Request, Response } from 'express';
+router.get('/', async (req: Request, res: Response) => {
 	try {
 		const notes = await Note.find({})
 			.sort()
@@ -16,7 +15,7 @@ router.get('/', async (req, res) => {
 	}
 });
 
-router.get('/id/:id', async (req, res) => {
+router.get('/id/:id', async (req: Request, res: Response) => {
 	try {
 		const notes = await Note.findById(req.params.id)
 			.sort()
@@ -32,7 +31,7 @@ router.get('/id/:id', async (req, res) => {
 	}
 });
 
-router.get('/title/:title', async (req, res) => {
+router.get('/title/:title', async (req: Request, res: Response) => {
 	try {
 		const notes = await Note.findOne({ title: req.params.title });
 		res.status(200).json(notes);
@@ -44,7 +43,7 @@ router.get('/title/:title', async (req, res) => {
 	}
 });
 
-router.get('/body/:content', async (req, res) => {
+router.get('/body/:content', async (req: Request, res: Response) => {
 	try {
 		const notes = await Note.findOne({ content: req.params.content });
 		res.status(200).json(notes);
@@ -56,7 +55,7 @@ router.get('/body/:content', async (req, res) => {
 	}
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
 	try {
 		const notesToBeCreated = req.body;
 		const notes = await Note.create(notesToBeCreated);
@@ -69,7 +68,7 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req: Request, res: Response) => {
 	try {
 		const updateNoteById = await Note.findByIdAndUpdate(req.params.id, {
 			title: req.body.title,
@@ -85,7 +84,7 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: Request, res: Response) => {
 	try {
 		const notes = await Note.findOneAndDelete(req.params.id);
 		res.status(202).json(`message with id of: ${req.params.id} deleted`);

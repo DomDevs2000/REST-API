@@ -1,5 +1,5 @@
 //@ts-check
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 dotenv.config();
 const { MONGO_URL } = process.env;
 import mongoose from 'mongoose';
