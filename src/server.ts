@@ -1,12 +1,22 @@
-//@ts-check
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 const { MONGO_URL } = process.env;
 import mongoose from 'mongoose';
 import { app } from './app.js';
 
+const isValidMongoUrl = (mongoUrl: string | undefined): mongoUrl is string => {
+	return mongoUrl !== undefined;
+};
+
+const mongoUrl = MONGO_URL;
+
+if (!isValidMongoUrl(mongoUrl)) {
+	throw new Error('Mongo URL Required');
+}
+
 const database = async () => {
-	await mongoose.connect(MONGO_URL, {
+	await mongoose.connect(mongoUrl, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
