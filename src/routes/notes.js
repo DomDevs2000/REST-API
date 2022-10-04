@@ -1,3 +1,4 @@
+//@ts-check
 import express from 'express';
 const router = express.Router();
 import { Note } from '../models/notes.schema.js';

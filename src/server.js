@@ -1,10 +1,12 @@
+//@ts-check
 import dotenv from 'dotenv';
 dotenv.config();
+const { MONGO_URL } = process.env;
 import mongoose from 'mongoose';
 import { app } from './app.js';
 
 const database = async () => {
-	await mongoose.connect(process.env.MONGO_URL, {
+	await mongoose.connect(MONGO_URL, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
