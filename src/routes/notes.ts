@@ -84,7 +84,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 	}
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request<{ id: any }>, res: Response) => {
 	try {
 		const notes = await Note.findOneAndDelete(req.params.id);
 		res.status(202).json(`message with id of: ${req.params.id} deleted`);
