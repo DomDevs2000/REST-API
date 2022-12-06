@@ -5,8 +5,8 @@
 	"type": "module",
 	"main": "src/server.ts",
 	"scripts": {
-		"dev": "nodemon -r esm src/server.ts",
-		"start": "ts-node-esm  src/server.ts",
+		"dev": "nodemon src/server.ts",
+		"start": "ts-node-esm src/server.ts",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --coverage"
 	},
 	"keywords": [],
@@ -23,7 +23,8 @@
 		"dotenv": "^16.0.2",
 		"esm": "^3.2.25",
 		"express": "^4.18.1",
-		"mongoose": "^5.13.15"
+		"mongoose": "^5.13.15",
+		"ts-node": "^10.9.1"
 	},
 	"devDependencies": {
 		"@types/express-serve-static-core": "^4.17.31",
