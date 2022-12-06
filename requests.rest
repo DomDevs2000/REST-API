@@ -4,7 +4,7 @@ GET  http://localhost:4000/notes
 GET http://localhost:4000/notes/id/6330fdff600d9b1dad39ba49
 ###
 
-GET http://localhost:4000/notes/title/et
+GET http://localhost:4000/notes/title/testnote12345
 
 ###
 
