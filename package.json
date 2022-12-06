@@ -2,10 +2,11 @@
 	"name": "api",
 	"version": "1.0.0",
 	"description": "",
-	"main": "src/server.js",
 	"type": "module",
+	"main": "src/server.ts",
 	"scripts": {
-		"dev": "nodemon src/server.js",
+		"dev": "nodemon -r esm src/server.ts",
+		"start": "ts-node-esm  src/server.ts",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --coverage"
 	},
 	"keywords": [],
@@ -20,6 +21,7 @@
 		"body-parser": "^1.20.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.2",
+		"esm": "^3.2.25",
 		"express": "^4.18.1",
 		"mongoose": "^5.13.15"
 	},
