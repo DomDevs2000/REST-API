@@ -21,8 +21,6 @@ const database = async () => {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
-	console.log(MONGO_URL)
-	console.log(MONGO_URI)
 	console.log('Connected To MongoDB');
 };
 database()
