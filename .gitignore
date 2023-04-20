@@ -10,5 +10,6 @@ jspm_packages
 coverage
 dist
 .idea
+.build
 
 
