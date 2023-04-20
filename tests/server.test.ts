@@ -2,7 +2,8 @@
 import { app } from '../src/app';
 import request from 'supertest';
 import { Note as model } from '../src/models/notes.schema';
-import mockingoose from 'mockingoose';
+// @ts-expect-error TS7016
+import * as mockingoose from 'mockingoose'
 
 describe('GET /notes', () => {
 	beforeEach(() => {
