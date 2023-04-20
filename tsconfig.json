@@ -1,16 +1,20 @@
 {
-	"compilerOptions": {
-		"strict": true,
-		"target": "ES2022",
-		// "declaration": true,
-		// "sourceMap": true,
-		"outDir": "dist",
-		"module": "es6",
-		"moduleResolution": "node",
-		"lib": ["ES2022"],
-		"resolveJsonModule": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"importsNotUsedAsValues": "preserve"
-	}
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2022",
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "outDir": "dist",
+    "module": "es6",
+    "moduleResolution": "node",
+    "lib": [
+      "ES2022"
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "importsNotUsedAsValues": "preserve"
+  }
 }
