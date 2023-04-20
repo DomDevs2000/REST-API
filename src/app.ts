@@ -20,5 +20,37 @@ app.set('json spaces', 2);
 //-----------------------------------------------------------------
 
 //----------------------------------------------------------------
+import mongoose from 'mongoose'
+import serverless from 'serverless-http'
+
+//@ts-ignore
+const MONGO_URI: string  = process.env.MONGO_URI
+
+
+const isValidMongoUrl = (mongoUrl: string | undefined): mongoUrl is string => {
+    return mongoUrl !== undefined;
+};
+
+const mongoUrl = MONGO_URI;
+
+if (!isValidMongoUrl(mongoUrl)) {
+    throw new Error('Mongo URL Required');
+}
+const database = mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+
+export const db  = async (event: any, context: any) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+   database.then(async (connection) => {
+       console.log('Connected To MongoDB');
+       app.listen(process.env.PORT, () => console.log('Server Running...'));
+   })
+       .catch((error) => console.log(error));
+};
+
 export const server = sls(app)
-export {app} ;
+export { database };
+export {app}

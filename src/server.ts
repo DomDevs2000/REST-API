@@ -16,7 +16,7 @@ if (!isValidMongoUrl(mongoUrl)) {
 	throw new Error('Mongo URL Required');
 }
 
-const database = async () => {
+ const database = async () => {
 	await mongoose.connect(mongoUrl, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
@@ -25,6 +25,7 @@ const database = async () => {
 };
 database()
 	.then(async (connection) => {
+
 		app.listen(process.env.PORT, () => console.log('Server Running...'));
 	})
 	.catch((error) => console.log(error));
