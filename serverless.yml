@@ -1,6 +1,6 @@
 service: Dom-Devs-Node-REST-API
 
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 provider:
   name: aws

@@ -1,4 +1,3 @@
-
 View This Project [Live](https://crud-rest-api.onrender.com/notes)
 (Use postman/insomnia in order to create GET/POST/PUT/DELETE requests)
 View This Project In [GitHub](https://github.com/DomDevs2000/REST-API)
@@ -28,7 +27,7 @@ it was a no-brainer to include it in this one. Typescript allows for a better de
 ### How to use the API endpoints
 
 To get all notes use a GET requests to the url: /notes
-To get a single note by id use the url: /notes/id/```id```
+To get a single note by id use the url: /notes/id/`id`
 To create a new note, use a POST requests to /notes ensuring "content-type: application/JSON" is set. JSON body should
 be as follows:
 
@@ -39,7 +38,7 @@ be as follows:
 }
 ```
 
-To update a note, use a PUT request to /notes/```id``` ensuring "content-type: application/JSON" is set. JSON body should
+To update a note, use a PUT request to /notes/`id` ensuring "content-type: application/JSON" is set. JSON body should
 be as follows:
 
 ```
@@ -49,4 +48,4 @@ be as follows:
 }
 ```
 
-To delete a note, use a DELETE request to /notes/```id``` and the API will delete the note by the id.
+To delete a note, use a DELETE request to /notes/`id` and the API will delete the note by the id.
