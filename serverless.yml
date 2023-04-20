@@ -1,4 +1,4 @@
-service: Hello-World
+service: Dom-Devs-Node-REST-API
 
 frameworkVersion: '3'
 
@@ -11,8 +11,9 @@ provider:
   timeout: 15
 
 functions:
-  HelloWorld:
+  Rest-API:
     handler: src/app.server # reference the file and exported method
+    name: Dom-Devs-Node-REST-API
     events: # events trigger lambda functions
       - http: # this is an API Gateway HTTP event trigger
           path: /
