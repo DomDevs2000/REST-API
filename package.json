@@ -43,6 +43,7 @@
     "mockingoose": "^2.15.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
+    "serverless-dotenv-plugin": "^6.0.0",
     "serverless-plugin-typescript": "^2.1.4",
     "supertest": "^6.2.4"
   }
